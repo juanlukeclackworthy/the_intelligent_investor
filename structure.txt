@@ -1,0 +1,8 @@
+stock_valuations_TII/
+│
+├── main.py                     # 🔁 Main script to run the screener
+├── ib_connect.py               # 🔌 Handles IB connection
+├── fetch_fundamentals.py       # 📊 Pulls and parses fundamental data
+├── criteria_checks.py          # ✅ Contains all your screening logic
+├── utils.py                    # 🛠 Any shared utilities (e.g., safe_cast, logging)
+├── tickers.txt                 # 🧾 List of tickers to screen
