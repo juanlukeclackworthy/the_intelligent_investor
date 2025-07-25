@@ -54,7 +54,7 @@ def compute_5yr_avg_pe(symbol, ib, verbose=True):
     if len(last_5_pe) < 5:
         if verbose:
             print("❌ Not enough data for 5-year average.")
-        return None, last_5_pe
+        return None, last_5_pe, pe_details
 
     avg = mean(last_5_pe)
     
@@ -65,4 +65,6 @@ def compute_5yr_avg_pe(symbol, ib, verbose=True):
             if asof_date in last_5_keys:
                 print(f"{asof_date} | EPS: {eps:.2f} | Close: {close:.2f} | P/E: {pe:.2f}")
 
-    return round(avg, 2), last_5_pe
+    return round(avg, 2), last_5_pe, pe_details
+
+

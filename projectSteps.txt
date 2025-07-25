@@ -1,12 +1,12 @@
 | **Criteria**                  | **IBKR Field**      | **Available?** | **Extracted As**             | **Status**    |
 | ----------------------------- | ------------------- | -------------- | ---------------------------- | ------------- |
-| **P/E ≤ 17**                  | `PEEXCLXOR`         | ✅ Yes          | `pe` from `<Ratio>`          | ✅ Accurate    |
-| **3-Year Avg P/E ≤ 18**       | `PE3YAVG`           | ✅ Yes          | Not in snapshot              | ❌ Missing     |
-| **P/B ≤ 1.5**                 | `PRICE2BK` or `PB`  | ✅ Yes          | `pb` from `<Ratio>`          | ✅ Accurate    |
-| **Current Ratio > 2**         | `CURRATIO`          | ✅ Yes          | Not in snapshot              | ❌ Missing     |
+| **P/E ≤ 17**                  | `PEEXCLXOR`         | ✅ Yes          | `pe` from `<Ratio>`          | ✅ Finished    |
+| **5-Year Avg P/E ≤ 18**       | `PE5YAVG`           | ✅ Yes          | Not in snapshot              | ✅ Finished    |
+| **P/B ≤ 1.5**                 | `PRICE2BK` or `PB`  | ✅ Yes          | `pb` from `<Ratio>`          | ✅ Finished    |
+| **Current Ratio > 2**         | `CURRATIO`          | ✅ Yes          | Not in snapshot              | ✅ Finished    |
 | **Net Assets > Debt**         | `QBVPS` + `TOTDEBT` | ✅ Yes      | QBVPS yes, TOTDEBT missing   | ⚠️ Incomplete |
 | **Stability Index ≥ 75**      | `STABILITY`         | ✅ Yes           | Not found                    | ❌ Missing     |
-| **EPS Growth ≥ 8% (5Y CAGR)** | EPS history         | ✅ Yes           | Requires `ReportsFinSummary` | ❌ Missing     |
+| **EPS Growth ≥ 6% (5Y CAGR)** | EPS history         | ✅ Yes           | Requires `ReportsFinSummary` | ✅ Finished   |
 
 
 [X] In main i have 2 accurate variables, get the rest. Figure out the best structure to add these varibals accuratley. 
@@ -14,6 +14,8 @@ Idea is to loop of all of them with many stock.
 
 [X]Completed 3, next is to get the current Ratio
 
-[ ] i have all of the criteria, add it into one py file dont include the **Net Assets > Debt** rather just show it.
+[X] i have all of the criteria, add it into one py file dont include the **Net Assets > Debt** rather just show it.
 
-[ ] Main filters data on 5 yr average pe add, the other filters to this. 
+[X] Main filters data on 5 yr average pe add, the other filters to this. 
+
+[ ] Compete this for the S&P 500

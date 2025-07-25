@@ -1,14 +1,9 @@
 from ib_insync import Stock
 import xml.etree.ElementTree as ET
-from ib_connect import connect_ib
-from collections import defaultdict
 from collections import OrderedDict
-from datetime import datetime
-from statistics import mean,stdev
 from statistics import stdev
 
-def compute_eps_stability_index(symbol):
-    ib = connect_ib()
+def compute_eps_stability_index(symbol, ib):
     stock = Stock(symbol, 'SMART', 'USD')
     summary = ib.reqFundamentalData(stock, 'ReportsFinSummary')
     root = ET.fromstring(summary)
@@ -23,26 +18,27 @@ def compute_eps_stability_index(symbol):
             except:
                 continue
 
-    eps_values = list(eps_by_date.values())[:5]
-    if len(eps_values) < 5:
-        print("❌ Not enough EPS data.")
+    # Sort and take last 6 years (to calculate 5 YoY changes)
+    eps_by_date = OrderedDict(sorted(eps_by_date.items()))
+    eps_values = list(eps_by_date.values())[-6:]
+
+    if len(eps_values) < 6:
+        print(f"{symbol}: ❌ Not enough EPS data.")
         return None
 
     yoy_growths = []
-    for i in range(1, 5):
-        prev = eps_values[i]
-        curr = eps_values[i - 1]
+    for i in range(1, len(eps_values)):
+        prev = eps_values[i - 1]
+        curr = eps_values[i]
         if prev > 0:
             yoy_growths.append((curr - prev) / prev)
 
     if len(yoy_growths) < 2:
-        print("❌ Not enough YoY growth data.")
+        print(f"{symbol}: ❌ Not enough YoY growth data.")
         return None
 
     vol = stdev(yoy_growths)
-    stability = max(0, min(100, 100 - (vol * 200)))
-    print(f"EPS Volatility for {symbol}: {vol*100:.2f}%")
-    print(f"Stability Index for {symbol}: {stability:.1f}")
+    stability = max(0, min(100, 100 - (vol * 200)))  # 0–100 index: higher = more stable
+
     return round(stability, 1)
 
-compute_eps_stability_index('AAPL')
